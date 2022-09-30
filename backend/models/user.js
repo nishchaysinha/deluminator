@@ -1,12 +1,20 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({
+const baseUserSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-const User = model("User", userSchema);
+const BaseUser = model("BaseUser", baseUserSchema);
 
-export default User;
+export const PrivateUser = BaseUser.discriminator(
+  "PrivateUser",
+  new Schema({ friends: [{ type: Schema.Types.ObjectId, ref: "User" }] })
+);
+
+export const PublicUser = BaseUser.discriminator(
+  "PublicUser",
+  new Schema({ location: String })
+);
+
