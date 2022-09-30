@@ -6,7 +6,7 @@ const baseUserSchema = new Schema({
   password: { type: String, required: true },
 });
 
-const BaseUser = model("BaseUser", baseUserSchema);
+export const BaseUser = model("BaseUser", baseUserSchema);
 
 export const PrivateUser = BaseUser.discriminator(
   "PrivateUser",
