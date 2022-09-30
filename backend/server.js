@@ -1,13 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import { Server } from "socket.io";
+import { createServer } from "http"
 import loginRouter from "./routes/login.js";
 import registerRouter from "./routes/register.js";
+
+const app = express();
+const httpServer = createServer(app)
+const io = new Server(httpServer)
 
 import dotenv from "dotenv";
 dotenv.config();
 
-const app = express();
+
 const port = 3001;
 
 mongoose.connect(process.env.MONGODB_URL).catch((err) => {
@@ -23,6 +29,6 @@ app.use(bodyParser.json());
 app.use("/api/register", registerRouter);
 app.use("/api/login", loginRouter);
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
