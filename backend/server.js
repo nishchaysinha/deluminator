@@ -9,16 +9,19 @@ import friendRouter from "./routes/friend.js";
 import chatRouter from "./routes/chat.js";
 import jwtSockets from "./middleware/jwtSockets.js";
 import WebSockets from "./utils/WebSockets.js";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-io.use(jwtSockets).on("connection", WebSockets.connection);
+const WebSocket = new WebSockets();
+io.use(jwtSockets).on("connection", WebSocket.connection);
 
 import dotenv from "dotenv";
 dotenv.config();
 
-const port = 3001;
+const port = 3002;
 
 mongoose.connect(process.env.MONGODB_URL).catch((err) => {
   console.error(err);
