@@ -1,5 +1,5 @@
-node_modules
-.vscode
-package-lock.json
-.env
-test
+.idea
+.gradle
+build
+
+app/src/main/res/values/api_key.xml
