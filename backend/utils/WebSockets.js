@@ -35,10 +35,12 @@ class WebSockets {
       socket.to(socketId).emit("approved", socket.userId);
     });
 
-    socket.on("sendLocation", function (userId2, location) {
+    socket.on("sendLocation", function (userId2, lattitude, longitude) {
       const users = getUsers();
       const socketId = users.find((obj) => obj.userId == userId2).socketId;
-      socket.to(socketId).emit("receiveLocation", socket.userId, location);
+      socket
+        .to(socketId)
+        .emit("receiveLocation", socket.userId, lattitude, longitude);
     });
 
     socket.on("terminate", function (userId2) {
