@@ -20,9 +20,9 @@ const registerController = async (req, res) => {
   };
 
   if (isPublic) {
-    var user = PublicUser.create(credentials);
+    var user = await PublicUser.create(credentials);
   } else {
-    var user = PrivateUser.create(credentials);
+    var user = await PrivateUser.create(credentials);
   }
 
   const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY);
