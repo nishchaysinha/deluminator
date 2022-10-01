@@ -15,7 +15,10 @@ export const BaseUser = model("BaseUser", baseUserSchema);
 
 export const PrivateUser = BaseUser.discriminator(
   "PrivateUser",
-  new Schema({ friends: [{ type: Schema.Types.ObjectId, ref: "User" }] })
+  new Schema({
+    friends: [String],
+    invites: [String],
+  })
 );
 
 export const PublicUser = BaseUser.discriminator(
